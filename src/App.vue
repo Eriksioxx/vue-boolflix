@@ -1,17 +1,20 @@
 <template>
   <div id="app">
     <FlixHeader @search="startSearch" />
+    <FlixMain :movie="movieFound" :series="seriesFound" />
   </div>
 </template>
 
 <script>
 import FlixHeader from "./components/FlixHeader.vue";
+import FlixMain from "./components/FlixMain.vue";
 import axios from "axios";
 
 export default {
   name: "App",
   components: {
     FlixHeader,
+    FlixMain,
   },
   data() {
     return {
@@ -84,7 +87,9 @@ export default {
 @import "./assets/style/common.scss";
 
 body {
+  background-color: rgb(94, 88, 88);
   background-image: url("../src/assets/img/netflix-image.jpg");
+  background-blend-mode: multiply;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center top;

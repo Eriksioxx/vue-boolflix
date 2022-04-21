@@ -37,7 +37,7 @@ export default {
 @import "../assets/style/common.scss";
 header {
   height: 80px;
-  background-color: black;
+  // background-color: black;
   display: flex;
   align-items: center;
   justify-content: space-between;

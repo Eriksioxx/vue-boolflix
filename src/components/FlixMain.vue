@@ -1,6 +1,6 @@
 <template>
   <main>
-    <FlixMovies :infoMovie="movie" :infoGenre="genre" />
+    <FlixMovies :infoMovie="movie" />
     <FlixSeries :infoSeries="series" />
   </main>
 </template>
@@ -15,7 +15,6 @@ export default {
   props: {
     movie: Array,
     series: Array,
-    genre: Array,
   },
 
   components: {
@@ -32,4 +31,30 @@ export default {
 
 <style scoped lang="scss">
 @import "../assets/style/common.scss";
+
+main {
+  // background-color: gray;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  ul.gallery {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    padding: 10px;
+    border: 1px solid black;
+    width: calc(100% / 4);
+    text-align: center;
+
+    img {
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+}
 </style>

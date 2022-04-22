@@ -25,6 +25,17 @@
             <h4>Voto: {{ product.vote_average }}</h4>
             <p>{{ product.overview }}</p>
           </div>
+
+          <div class="rating" v-for="(n, index) in 5" :key="index">
+            <font-awesome-icon
+              :class="n <= product.vote_average / 2 ? 'star-red' : ''"
+              :icon="
+                product.vote_average / 2 == 0
+                  ? 'fa-solid fa-ban'
+                  : 'fa-solid fa-star'
+              "
+            />
+          </div>
         </div>
         <!-- Fine back -->
       </div>
@@ -62,7 +73,7 @@ export default {
       background-color: transparent;
 
       &:hover .flip-card-inner {
-        transform: rotateY(180deg);
+        transform: rotateY(180deg) scale(1.2) translateZ(200px);
       }
 
       img {
@@ -94,7 +105,7 @@ export default {
           width: 100%;
           height: 100%;
           text-align: center;
-          transition: transform 0.5s;
+          transition: transform 0.7s;
           transform-style: preserve-3d;
 
           // Inizio flip card front e back
@@ -103,7 +114,7 @@ export default {
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
-            background-color: black;
+            background-color: rgba($color: #000000, $alpha: 0.5);
             color: white;
           }
 

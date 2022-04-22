@@ -37,7 +37,7 @@ export default {
     //     showCover() {
     //       this.display = null;
     //       console.log(this.display);
-    // },
+    //     },
   },
 };
 </script>

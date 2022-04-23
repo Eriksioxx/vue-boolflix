@@ -21,16 +21,19 @@
                   : product.original_name
               }}
             </h2>
-            <lang-flag :iso="product.original_language" />
+            <lang-flag :iso="product.original_language" :squared="false" />
             <h4>Voto: {{ product.vote_average }}</h4>
+
             <p>{{ product.overview }}</p>
           </div>
 
           <div class="rating" v-for="(n, index) in 5" :key="index">
             <font-awesome-icon
-              :class="n <= product.vote_average / 2 ? 'star-red' : ''"
+              :class="
+                n <= Math.ceil(product.vote_average / 2) ? 'star-red' : ''
+              "
               :icon="
-                product.vote_average / 2 == 0
+                Math.ceil(product.vote_average / 2) == 0
                   ? 'fa-solid fa-ban'
                   : 'fa-solid fa-star'
               "

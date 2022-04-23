@@ -1,7 +1,16 @@
 <template>
   <div id="app">
-    <FlixHeader @search="startSearch" />
-    <FlixMain :movie="movieFound" :series="seriesFound" />
+    <FlixHeader
+      @search="startSearch"
+      @SelectionGenre="getSelection"
+      :genre="allGenres"
+    />
+    <FlixMain
+      :movie="movieFound"
+      :series="seriesFound"
+      :trendingMovies="trendingMovies"
+      :trendingTv="trendingTv"
+    />
   </div>
 </template>
 
@@ -21,11 +30,17 @@ export default {
       movieFound: [],
       seriesFound: [],
 
-      // allGeners: [],
+      allGeners: [],
+
+      selectedGenres: [],
+      selectedMovies: [],
 
       genresFound: "",
       apiKey: "3fcf4a781e2ec238aae1da6edb339733",
       language: "it-IT",
+
+      trendingMovies: [],
+      trendingTv: [],
     };
   },
 
@@ -79,6 +94,60 @@ export default {
           console.log(error);
         });
     },
+
+    //  Funzione di ricerca generi
+    getSelection(selection) {
+      this.selectedGenres = selection;
+      console.log("Ho ricevuto:" + this.selectedGenres.name);
+    },
+
+    // Funzione di filtraggio generi
+    loopGenres() {
+      this.movieFound.forEach((element) => {
+        console.log(element.genre_ids);
+      });
+    },
+  },
+
+  created() {
+    //Funzione di cattura dei generi
+    const paramsGenre = {
+      params: {
+        api_key: this.apiKey,
+        language: this.language,
+      },
+    };
+    axios
+      .get("https://api.themoviedb.org/3/genre/movie/list", paramsGenre)
+      .then((response) => (this.allGenres = response.data.genres));
+
+    // Funzione per mostrare il trading
+    axios
+      .all([
+        axios.get(
+          "https://api.themoviedb.org/3/trending/movie/week?api_key=" +
+            this.apiKey
+        ),
+
+        axios.get(
+          "https://api.themoviedb.org/3/trending/tv/week?api_key=" + this.apiKey
+        ),
+      ])
+      .then(
+        axios.spread((resMovieT, resTV) => {
+          this.trendingMovies = resMovieT.data.results;
+          console.log("Trending", this.trendingMovies);
+          this.trendingTv = resTV.data.results;
+        })
+      );
+  },
+
+  computed: {
+    // getFilteredMovies() {
+    //   this.movieFound = this.selectedMovies.filter((movie) =>
+    //     movie.genre_ids.includes(this.selectedGenres.id)
+    //   );
+    // },
   },
 };
 </script>

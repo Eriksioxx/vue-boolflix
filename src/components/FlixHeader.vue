@@ -2,6 +2,16 @@
   <header>
     <h1 id="site-name">BOOLFLIX</h1>
 
+    <select
+      v-model="targetGenre"
+      @change="$emit('SelectionGenre', targetGenre)"
+    >
+      <option value selected="Tutti i generi">Tutti i generi</option>
+      <option v-for="(product, index) in genre" :key="index" :value="option">
+        {{ product.name }}
+      </option>
+    </select>
+
     <form class="searchPanel">
       <input
         type="text"
